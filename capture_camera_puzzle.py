@@ -84,7 +84,11 @@ class Camera_Puzzle:
             aspect_ratio = w / float(h)
 
             if 0.9 < aspect_ratio < 1.1 and max_area > 1000:
+
                 cropped_image = self.correct_skew(original_image, largest_contour)
+                cropped_image = cv2.addWeighted(cropped_image, 1, np.zeros(cropped_image.shape, cropped_image.dtype), 0, 75)
+
+
                 cv2.rectangle(original_image, (x,y), (x+w, y+h), (124, 237, 43), 3)
                 cv2.putText(original_image, "Sudoku Grid", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 1, (124, 237, 43), 2, cv2.LINE_AA)
                 found = True
