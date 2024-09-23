@@ -34,7 +34,7 @@ def openGUI():
         
         image_preprocesser = Image_Processer(loadingSpinner, root)
         image_path = file.name 
-        grid = image_preprocesser.extract_digits_from_grid(image_path)
+        grid = image_preprocesser.extract_digits_from_grid(image_path=image_path)
         
         loadingLabel.destroy()
         #print("Extracted Grid:\n", grid)
@@ -99,11 +99,51 @@ def openGUI():
                 sudoku_cell = ttk.Label(sudokuContainer, text=cell_value, width=3, anchor="center", font=('Arial', 24), relief="solid", borderwidth=4, border=4)
                 sudoku_cell.grid(row=i, column=j, ipadx=5, ipady=10)
 
-    def get_puzzle_from_camera():
+    def get_puzzle_from_camera(camera_feed):
+
+        introContainer.destroy()
 
         camera_puzzle = Camera_Puzzle()
 
-        camera_puzzle.getCameraFeed(webcamFeed)
+        camera_puzzle.getCameraFeed(webcamFeed=camera_feed, on_puzzle_found_callback=on_puzzle_found)
+
+        #camera_feed.destroy()
+
+    def on_puzzle_found(puzzle):
+
+        sudokuContainer = ttk.Frame(root)
+        sudokuContainer.pack(side='top', fill=tk.BOTH, anchor="center", padx=25, pady=25)
+
+        loadingLabel = ttk.Label(sudokuContainer, text="Reading...", anchor="center", font=('Arial', 16))
+        loadingLabel.pack(side='top', fill=tk.BOTH, anchor="center")
+
+        loadingSpinner = ttk.Progressbar(sudokuContainer, orient="horizontal", length = 200, mode="determinate", takefocus=True, maximum=81)
+        loadingSpinner.pack(side='top', fill=tk.X, anchor="center", padx=10, pady=15)
+        
+        image_preprocesser = Image_Processer(loadingSpinner, root)
+        grid = image_preprocesser.extract_digits_from_grid(raw_image=puzzle)
+        
+        loadingLabel.destroy()
+        #print("Extracted Grid:\n", grid)
+
+        sudokuContainer.config(relief="solid", borderwidth=4)
+
+        root.update()
+        
+        for i in range(9):
+            for j in range(9):
+
+                cell_value = grid[i][j]
+
+                if cell_value == '0':
+                    cell_value = "_"
+                
+                cell_vars[i][j] = cell_value
+
+                sudoku_cell = ttk.Label(sudokuContainer, text=cell_value, width=3, anchor="center", font=('Arial', 24), relief="solid", borderwidth=4, border=4)
+                sudoku_cell.grid(row=i, column=j, ipadx=5, ipady=10)
+
+
 
     introContainer = ttk.Frame(root)
     introContainer.pack(side='top', fill=tk.Y, anchor="center")
@@ -120,7 +160,7 @@ def openGUI():
     uploadImageButton = ttk.Button(buttonContainer, text="Upload Puzzle Image", command=get_puzzle_from_image)
     uploadImageButton.pack(side='top', anchor='center', fill=tk.BOTH, padx="2px", pady="2px")
 
-    photoButton = ttk.Button(buttonContainer, text="Show Puzzle on Camera", command=get_puzzle_from_camera)
+    photoButton = ttk.Button(buttonContainer, text="Show Puzzle on Camera", command=lambda: get_puzzle_from_camera(webcamFeed))
     photoButton.pack(side='top', anchor='center', fill=tk.BOTH, padx="2px", pady="2px")
 
     manualInputButton = ttk.Button(buttonContainer, text="Manually Input Puzzle", command=open_manual_puzzle)

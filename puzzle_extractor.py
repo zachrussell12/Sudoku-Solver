@@ -36,7 +36,7 @@ class PuzzleExtractor:
             
             cropped_image = original_image[y:y+h, x:x+w]
             
-            cv2.imwrite("sudoku_cropped.png", cropped_image)
+            #cv2.imwrite("sudoku_cropped.png", cropped_image)
             
             return cropped_image
         else:

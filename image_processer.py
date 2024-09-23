@@ -42,9 +42,12 @@ class Image_Processer:
 
         return final_image
 
-    def extract_digits_from_grid(self, image_path):
+    def extract_digits_from_grid(self, image_path=None, raw_image=None):
 
-        image = PuzzleExtractor().find_sudoku_grid(image_path)
+        if image_path is not None:
+            image = PuzzleExtractor().find_sudoku_grid(image_path)
+        else:
+            image = raw_image
 
         cleaned_image = self.preprocess_image(image)
 
