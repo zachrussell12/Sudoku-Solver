@@ -4,6 +4,8 @@ from tkinter import ttk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import sv_ttk
+import time
+import math
 
 #Local Classes
 from image_processer import Image_Processer
@@ -187,7 +189,13 @@ def openGUI():
 
         solving_agent = Solve_Agent()
 
+        start_time = time.time()
+
         solving_agent.solve_puzzle(cell_vars, sudokuContainer, root)
+
+        solve_time = time.time() - start_time
+
+        print(f"Time to Solve: {math.floor(solve_time/60)}min(s) {solve_time % 60}sec(s)")
 
 
 

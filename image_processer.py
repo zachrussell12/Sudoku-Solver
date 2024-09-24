@@ -54,7 +54,7 @@ class Image_Processer:
         #cnn_model = load_model(r"cnn_model_100.keras", custom_objects={'BatchNormalization': BatchNormalization, 'Dropout': Dropout})
 
         cv2.imwrite("processed_image.jpg", cleaned_image)
-        print("image processed")
+        #print("image processed")
 
         grid_size = 9
         h, w = cleaned_image.shape
@@ -80,7 +80,7 @@ class Image_Processer:
 
                 cell_text = self.ensemble_predict(cell)
 
-                print(f"Prediction for location {i}, {j}: {cell_text}")
+                #print(f"Prediction for location {i}, {j}: {cell_text}")
                 
                 if cell_text == 10:
                     cell_text = ""

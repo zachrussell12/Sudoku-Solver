@@ -1,3 +1,4 @@
 *.keras
 croppedcellimages/
 cellimages/
+*.ai

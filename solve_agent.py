@@ -31,7 +31,7 @@ class Solve_Agent():
         for i in range(len(puzzle_grid)):
             for j in range(len(puzzle_grid)):
                 if puzzle_grid[j][i] == ".":
-                    print("Still moves to be made.")
+                    #print("Still moves to be made.")
                     return False
 
         print("Puzzle solved!")
@@ -133,5 +133,7 @@ class Solve_Agent():
             puzzle_grid = copy.deepcopy(current_state)
 
             #print(current_state)
+
+        return True
 
 
