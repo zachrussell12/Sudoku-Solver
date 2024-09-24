@@ -4,7 +4,9 @@
 
 This weekend project was a challenge I took on to strengthen my knowledge in AI, machine learning, and image recognition. The project was broken up into multiple stages and utilized multiple different technologies to accomplish.
 
-[Video]
+### Video Demo
+
+https://github.com/user-attachments/assets/de547165-30a8-4269-99c9-b45172f19932
 
 ### Technologies and Methodologies Leveraged
 
